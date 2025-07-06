@@ -5,6 +5,14 @@ class EnvironmentVariables {
   @IsString()
   @IsNotEmpty()
   DATABASE_URI: string;
+
+  @IsString()
+  @IsNotEmpty()
+  FIREBASE_CLIENT_EMAIL: string;
+
+  @IsString()
+  @IsNotEmpty()
+  FIREBASE_PROJECT_ID: string;
 }
 
 export function validate(config: Record<string, unknown>) {

@@ -13,4 +13,4 @@ export class Appointment extends Document {
   services: string[];
 }
 
-export const AppointmentModel = SchemaFactory.createForClass(Appointment);
+export const AppointmentSchema = SchemaFactory.createForClass(Appointment);
