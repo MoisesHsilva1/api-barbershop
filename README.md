@@ -1,6 +1,6 @@
 <body>
   <h1>API Barbershop</h1>
-  <p>API RESTful para agendamento e gestão de barbearias, desenvolvida com NestJS, TypeScript, MongoDB, Mongoose, autenticação Firebase e CI/CD.</p>
+  <p>API RESTful para agendamento e gestão de barbearias, desenvolvida com NestJS, TypeScript, MongoDB, Mongoose, autenticação Firebase com CI/CD e deploy automatizado na Render.</p>
 
   <h2>Índice</h2>
   <ul>
