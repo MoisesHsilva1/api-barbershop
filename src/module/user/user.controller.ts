@@ -1,4 +1,11 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Query,
+  ParseArrayPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UserService } from './service/user.service';
 import { User } from './model/user.model';
@@ -21,5 +28,22 @@ export class UserController {
       phone,
       password,
     });
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get a list user by id' })
+  @ApiResponse({ status: 200, description: 'Get a user by id' })
+  async getUserById(@Query('id') id: string): Promise<User | null> {
+    return await this.userService.findByUid(id);
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'Get a users by ids' })
+  @ApiResponse({ status: 200, description: 'Get a users by ids' })
+  async getUsersByIds(
+    @Query('ids', new ParseArrayPipe({ items: String, separator: ',' }))
+    id: string[],
+  ): Promise<User[]> {
+    return await this.userService.findManyByIds(id);
   }
 }

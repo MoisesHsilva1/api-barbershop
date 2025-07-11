@@ -11,6 +11,14 @@ export class UserService {
     @Inject('FIREBASE_ADMIN') private readonly firebaseApp: admin.app.App,
   ) {}
 
+  async findByUid(uid: string): Promise<User | null> {
+    return this.userModel.findOne({ uid }).exec();
+  }
+
+  async findManyByIds(uid: string[]): Promise<User[]> {
+    return this.userModel.find({ uid: { $in: uid } }).exec();
+  }
+
   async create(user: {
     name: string;
     email: string;

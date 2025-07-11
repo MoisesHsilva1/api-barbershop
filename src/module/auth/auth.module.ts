@@ -4,6 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../user/model/user.model';
 import * as admin from 'firebase-admin';
 import { UserModule } from '../user/user.module';
+import { AuthService } from './service/auth.service';
+import { AuthController } from './auth.controller';
 
 @Global()
 @Module({
@@ -11,8 +13,9 @@ import { UserModule } from '../user/user.module';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     forwardRef(() => UserModule),
   ],
-  controllers: [],
+  controllers: [AuthController],
   providers: [
+    AuthService,
     {
       provide: 'FIREBASE_ADMIN',
       inject: [ConfigService],
@@ -31,6 +34,6 @@ import { UserModule } from '../user/user.module';
       },
     },
   ],
-  exports: ['FIREBASE_ADMIN'],
+  exports: ['FIREBASE_ADMIN', AuthService],
 })
 export class AuthModule {}
