@@ -11,8 +11,8 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AppointmentService } from './service/appointment.service';
 import { CreateAppointmentDto } from './dto/create-Appointment.dto';
 import { AlphGuard } from '../auth/service/alphGuard.service';
-import { Request } from 'express';
 import { Appointment } from './model/appointment.model';
+import { AuthenticatedRequestInterface } from './interface/authenticatedRequest.interface';
 
 @ApiTags('Appointments')
 @Controller('appointments')
@@ -25,10 +25,9 @@ export class AppointmentController {
   @ApiResponse({ status: 201, description: 'Create appointment success!!' })
   async createAppointment(
     @Body() body: CreateAppointmentDto,
-    @Req() req: Request,
+    @Req() req: AuthenticatedRequestInterface,
   ): Promise<Appointment> {
-    const user = (req as any).user;
-    const uid = user.uid;
+    const uid = req.user.uid;
 
     return await this.serviceAppointment.create({
       userId: uid,
