@@ -22,8 +22,7 @@ export class AlphGuard implements CanActivate {
     const token = authHeader.slice(7).trim();
 
     try {
-      const decodedToken = await admin.auth().verifyIdToken(token);
-      request.user = decodedToken;
+      request.user = await admin.auth().verifyIdToken(token);
       return true;
     } catch {
       throw new UnauthorizedException('Invalid or expired token');

@@ -11,6 +11,12 @@ export class UserService {
     @Inject('FIREBASE_ADMIN') private readonly firebaseApp: admin.app.App,
   ) {}
 
+  async findIsAdmin(uid: string): Promise<boolean> {
+    const user = await this.userModel.findOne({ uid }).select('isAdmin');
+
+    return user?.isAdmin === true;
+  }
+
   async findByUid(uid: string): Promise<User | null> {
     return this.userModel.findOne({ uid }).exec();
   }

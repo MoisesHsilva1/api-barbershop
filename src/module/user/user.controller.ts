@@ -4,6 +4,7 @@ import {
   Body,
   Get,
   Query,
+  Param,
   ParseArrayPipe,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -35,6 +36,12 @@ export class UserController {
   @ApiResponse({ status: 200, description: 'Get a user by id' })
   async getUserById(@Query('id') id: string): Promise<User | null> {
     return await this.userService.findByUid(id);
+  }
+
+  @Get('admin/:id')
+  async getUserIsAdmin(@Param('id') id: string): Promise<{ isAdmin: boolean }> {
+    const isAdmin = await this.userService.findIsAdmin(id);
+    return { isAdmin };
   }
 
   @Get()
